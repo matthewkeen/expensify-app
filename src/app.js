@@ -16,9 +16,11 @@ import {
 
 import 'normalize.css/normalize.css';
 import './styles/style.scss';
+import './firebase/firebase';
+//import './playground/promises';
 
 const store = configureStore();
-const state = store.getState();
+
 
 const jsx = (
   <Provider store={store}>
