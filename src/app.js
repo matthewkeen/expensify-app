@@ -11,6 +11,7 @@ import { login, logout } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/style.scss';
 import { firebase } from './firebase/firebase';
+import LoadingPage from './components/LoadingPage'
 //import './playground/promises';
 
 
@@ -31,14 +32,12 @@ const renderApp = () => {
 }
 
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
     store.dispatch(login(user.uid));
-    console.log('Uid', user.uid);
-    console.log('Log in');
     store.dispatch(startSetExpenses()).then(() => {
       renderApp();
       if (history.location.pathname === '/') {
@@ -48,7 +47,6 @@ firebase.auth().onAuthStateChanged((user) => {
 
   } else {
     store.dispatch(logout());
-    console.log('Log out');
     renderApp();
     history.push('/');;
   }
